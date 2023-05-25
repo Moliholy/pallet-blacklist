@@ -1,3 +1,5 @@
+#![cfg_attr(not(feature = "std"), no_std)]
+
 //! # Blacklist Pallet
 //!
 //! - [`Config`]
@@ -7,21 +9,23 @@
 //! Allow some configurable origin: [`Config::BlacklistingOrigin`] to blacklist some accounts.
 //! Blacklisted accounts are not allowed to perform certain actions.
 
-#![cfg_attr(not(feature = "std"), no_std)]
 pub use pallet::*;
+
+#[cfg(test)]
+mod mock;
+
+#[cfg(test)]
+mod tests;
 
 #[cfg(feature = "runtime-benchmarks")]
 mod benchmarking;
-#[cfg(test)]
-mod mock;
-#[cfg(test)]
-mod tests;
+pub mod weights;
+pub use weights::*;
 
 #[frame_support::pallet]
 pub mod pallet {
     use frame_support::pallet_prelude::*;
     use frame_system::pallet_prelude::*;
-    use frame_system::WeightInfo;
 
     use super::*;
 
@@ -63,7 +67,7 @@ pub mod pallet {
     #[pallet::call]
     impl<T: Config> Pallet<T> {
         #[pallet::call_index(0)]
-        #[pallet::weight(0)]
+        #[pallet::weight(T::WeightInfo::blacklist_account())]
         pub fn blacklist_account(origin: OriginFor<T>, account: T::AccountId) -> DispatchResult {
             T::BlacklistingOrigin::ensure_origin(origin)?;
 
@@ -80,7 +84,7 @@ pub mod pallet {
         }
 
         #[pallet::call_index(1)]
-        #[pallet::weight(0)]
+        #[pallet::weight(T::WeightInfo::remove_blacklisted_account())]
         pub fn remove_blacklisted_account(
             origin: OriginFor<T>,
             account: T::AccountId,
@@ -111,6 +115,7 @@ pub mod pallet {
             }
         }
 
+        #[cfg(feature = "runtime-benchmarks")]
         fn try_successful_origin() -> Result<T::AccountId, ()> {
             Err(())
         }
