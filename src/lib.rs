@@ -5,7 +5,7 @@
 //! ## Overview
 //!
 //! Allow some configurable origin: [`Config::BlacklistingOrigin`] to blacklist some accounts.
-//! Blacklisted accounts are not allowed to perform
+//! Blacklisted accounts are not allowed to perform certain actions.
 
 #![cfg_attr(not(feature = "std"), no_std)]
 pub use pallet::*;
@@ -111,7 +111,6 @@ pub mod pallet {
             }
         }
 
-        #[cfg(feature = "runtime-benchmarks")]
         fn try_successful_origin() -> Result<T::AccountId, ()> {
             Err(())
         }
