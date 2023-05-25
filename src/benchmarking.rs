@@ -27,7 +27,7 @@ mod benchmarks {
         #[extrinsic_call]
         remove_blacklisted_account(RawOrigin::Root, value.clone());
 
-        assert_eq!(BlacklistedAccount::<T>::get(value), Some(()));
+        assert_eq!(BlacklistedAccount::<T>::get(value), None);
     }
 
     impl_benchmark_test_suite!(Blacklist, crate::mock::new_test_ext(), crate::mock::Test);
