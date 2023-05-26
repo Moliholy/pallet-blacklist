@@ -101,7 +101,7 @@ pub mod pallet {
 
     impl<T: Config> Pallet<T> {
         pub fn is_account_blacklisted(account: &T::AccountId) -> bool {
-            BlacklistedAccount::<T>::take(account).is_some()
+            BlacklistedAccount::<T>::get(account).is_some()
         }
     }
 
