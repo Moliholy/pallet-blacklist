@@ -62,7 +62,7 @@ pub mod pallet {
     #[pallet::storage]
     #[pallet::getter(fn blacklist)]
     pub type BlacklistedAccount<T: Config> =
-    StorageMap<_, Twox64Concat, T::AccountId, (), OptionQuery>;
+        StorageMap<_, Twox64Concat, T::AccountId, (), OptionQuery>;
 
     #[pallet::call]
     impl<T: Config> Pallet<T> {
@@ -72,9 +72,9 @@ pub mod pallet {
             T::BlacklistingOrigin::ensure_origin(origin)?;
 
             ensure!(
-				!BlacklistedAccount::<T>::contains_key(&account),
-				Error::<T>::AccountAlreadyBlacklisted,
-			);
+                !BlacklistedAccount::<T>::contains_key(&account),
+                Error::<T>::AccountAlreadyBlacklisted,
+            );
 
             BlacklistedAccount::<T>::insert(&account, ());
 
@@ -99,9 +99,9 @@ pub mod pallet {
         }
     }
 
-    impl <T: Config> Pallet<T> {
+    impl<T: Config> Pallet<T> {
         pub fn is_account_blacklisted(account: &T::AccountId) -> bool {
-            BlacklistedAccount::<T>::take(&account).is_some()
+            BlacklistedAccount::<T>::take(account).is_some()
         }
     }
 
@@ -111,7 +111,7 @@ pub mod pallet {
         fn try_origin(o: T::AccountId) -> Result<Self::Success, T::AccountId> {
             match Self::is_account_blacklisted(&o) {
                 false => Ok(()),
-                true => Err(o)
+                true => Err(o),
             }
         }
 
