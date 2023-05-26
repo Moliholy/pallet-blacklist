@@ -34,7 +34,7 @@ pub mod pallet {
         /// The overarching event type.
         type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
-        /// Required origin for whitelisting an account.
+        /// Required origin for blacklisting an account.
         type BlacklistingOrigin: EnsureOrigin<Self::RuntimeOrigin>;
 
         /// The weight information for this pallet.
@@ -47,7 +47,9 @@ pub mod pallet {
     #[pallet::event]
     #[pallet::generate_deposit(pub (super) fn deposit_event)]
     pub enum Event<T: Config> {
+        /// A new account has been blacklisted
         AccountBlacklisted { account: T::AccountId },
+        /// A blacklisted account has been removed
         BlacklistedAccountRemoved { account: T::AccountId },
     }
 
@@ -66,6 +68,7 @@ pub mod pallet {
 
     #[pallet::call]
     impl<T: Config> Pallet<T> {
+        /// Adds an account to the blacklist
         #[pallet::call_index(0)]
         #[pallet::weight(T::WeightInfo::blacklist_account())]
         pub fn blacklist_account(origin: OriginFor<T>, account: T::AccountId) -> DispatchResult {
@@ -83,6 +86,7 @@ pub mod pallet {
             Ok(())
         }
 
+        /// Removes an account from the blacklist
         #[pallet::call_index(1)]
         #[pallet::weight(T::WeightInfo::remove_blacklisted_account())]
         pub fn remove_blacklisted_account(
