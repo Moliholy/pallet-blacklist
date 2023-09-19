@@ -12,11 +12,12 @@ description = "FRAME pallet for blacklisting accounts"
 targets = ["x86_64-unknown-linux-gnu"]
 
 [dependencies]
-parity-scale-codec = { version = "3.6.5", default-features = false, features = ["derive", "max-encoded-len"] }
+parity-scale-codec = { version = "3.6", default-features = false, features = ["derive", "max-encoded-len"] }
 frame-benchmarking = { default-features = false, optional = true, git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v1.0.0" }
 frame-support = { default-features = false, git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v1.0.0" }
 frame-system = { default-features = false, git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v1.0.0" }
-scale-info = { version = "2.5.0", default-features = false, features = ["derive"] }
+scale-info = { version = "2.5", default-features = false, features = ["derive"] }
+migratable = { git = "https://github.com/Moliholy/migratable.git", default-features = false }
 
 [dev-dependencies]
 sp-core = { default-features = false, git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v1.0.0" }

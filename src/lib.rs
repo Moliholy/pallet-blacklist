@@ -22,6 +22,7 @@ mod benchmarking;
 pub mod weights;
 pub use weights::*;
 
+#[migratable::pallet]
 #[frame_support::pallet]
 pub mod pallet {
     use frame_support::pallet_prelude::*;
@@ -29,6 +30,7 @@ pub mod pallet {
 
     use super::*;
 
+    #[migratable::config]
     #[pallet::config]
     pub trait Config: frame_system::Config {
         /// The overarching event type.
@@ -41,8 +43,15 @@ pub mod pallet {
         type WeightInfo: WeightInfo;
     }
 
+    const STORAGE_VERSION: StorageVersion = StorageVersion::new(0);
+
     #[pallet::pallet]
+    #[pallet::storage_version(STORAGE_VERSION)]
     pub struct Pallet<T>(_);
+
+    #[migratable::hooks]
+    #[pallet::hooks]
+    impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {}
 
     #[pallet::event]
     #[pallet::generate_deposit(pub (super) fn deposit_event)]
