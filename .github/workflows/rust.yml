@@ -33,4 +33,4 @@ jobs:
           && cargo install cargo-sort
           && cargo sort --workspace --check --grouped
           && cargo clippy --workspace --tests -- -Dwarnings
-          && cargo test --workspace --features runtime-benchmarks
+          && cargo test --workspace --all-features

@@ -1,7 +1,7 @@
 [package]
 name = "pallet-blacklist"
 version = "0.0.1"
-authors = ["José Molina <jose.molina@parity.io>"]
+authors = ["José Molina <jmolinacolmenero@gmail.com>"]
 edition = "2021"
 license = "Unlicensed"
 homepage = "https://substrate.io"
@@ -12,16 +12,16 @@ description = "FRAME pallet for blacklisting accounts"
 targets = ["x86_64-unknown-linux-gnu"]
 
 [dependencies]
-parity-scale-codec = { version = "3.6.5", default-features = false, features = ["derive", "max-encoded-len"] }
-frame-benchmarking = { default-features = false, optional = true, git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v1.0.0" }
-frame-support = { default-features = false, git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v1.0.0" }
-frame-system = { default-features = false, git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v1.0.0" }
-scale-info = { version = "2.5.0", default-features = false, features = ["derive"] }
+frame-benchmarking = { default-features = false, optional = true, git = "https://github.com/paritytech/polkadot-sdk", tag = "polkadot-stable2409" }
+frame-support = { default-features = false, git = "https://github.com/paritytech/polkadot-sdk", tag = "polkadot-stable2409" }
+frame-system = { default-features = false, git = "https://github.com/paritytech/polkadot-sdk", tag = "polkadot-stable2409" }
+parity-scale-codec = { default-features = false, features = ["derive"], version = "3.6.12" }
+scale-info = { version = "2.11.3", default-features = false, features = ["derive"] }
 
 [dev-dependencies]
-sp-core = { default-features = false, git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v1.0.0" }
-sp-io = { default-features = false, git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v1.0.0" }
-sp-runtime = { default-features = false, git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v1.0.0" }
+sp-core = { default-features = false, git = "https://github.com/paritytech/polkadot-sdk", tag = "polkadot-stable2409" }
+sp-io = { default-features = false, git = "https://github.com/paritytech/polkadot-sdk", tag = "polkadot-stable2409" }
+sp-runtime = { default-features = false, git = "https://github.com/paritytech/polkadot-sdk", tag = "polkadot-stable2409" }
 
 [features]
 default = ["std"]
