@@ -47,9 +47,9 @@ pub mod pallet {
     #[pallet::event]
     #[pallet::generate_deposit(pub (super) fn deposit_event)]
     pub enum Event<T: Config> {
-        /// A new account has been blacklisted
+        /// A new account has been blacklisted.
         AccountBlacklisted { account: T::AccountId },
-        /// A blacklisted account has been removed
+        /// A blacklisted account has been removed.
         BlacklistedAccountRemoved { account: T::AccountId },
     }
 
@@ -68,7 +68,7 @@ pub mod pallet {
 
     #[pallet::call]
     impl<T: Config> Pallet<T> {
-        /// Adds an account to the blacklist
+        /// Adds an account to the blacklist.
         #[pallet::call_index(0)]
         #[pallet::weight(T::WeightInfo::blacklist_account())]
         pub fn blacklist_account(origin: OriginFor<T>, account: T::AccountId) -> DispatchResult {
@@ -86,7 +86,7 @@ pub mod pallet {
             Ok(())
         }
 
-        /// Removes an account from the blacklist
+        /// Removes an account from the blacklist.
         #[pallet::call_index(1)]
         #[pallet::weight(T::WeightInfo::remove_blacklisted_account())]
         pub fn remove_blacklisted_account(
